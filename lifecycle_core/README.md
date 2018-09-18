@@ -3,8 +3,28 @@
 模仿Android Lifecycle组件功能的dart版本生命周期核心组件
 
 ## Usage
-添加 `lifecycle_core` 到 [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
-import 'package:lifecycle_core/lifecycle_core.dart';
+* 添加 `lifecycle_core` 到 [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
+* import 'package:lifecycle_core/lifecycle_core.dart';
+
+LifecycleOwner用于管理生命周期，需要由具有生命周期的对象实现，在flutter中这应该是State类。
+
+ViewModelStoreOwner用于管理ViewModel，同样具有生命周期感知能力，建议由LifecycleOwner对象实现。
+
+在ViewModel中可以管理数据和执行业务相关操作，由ViewModelStoreOwner管理，
+每个ViewModelStoreOwner实例中可以管理多个不同类型的ViewModel实例，对于相同类型的ViewModel只会有一个实例。
+在不同的ViewModelStoreOwner实例中同类型的ViewModel各自管理不同的实例。
+
+ViewModel通过getViewModel方法获取，需要提供一个ViewModelStoreOwner实例和ViewModelProvider实例。
+
+ViewModelProvider与ViewModel一一对应，同一个类型的ViewModel应该有且仅有一个对应的ViewModelProvider，
+ViewModelProvider仅用于首次构建ViewModel实例使用。
+
+通过LifecycleObserver可以实现具有生命周期感知的功能组件，用法请看以下示例。
+
+通过LiveData可以监听数据的变化，用法请看以下示例。
+
+有关更多Lifecycle ViewModel LiveData的使用请查看 [lifecycle_core](https://github.com/cwkProject/lifecycle/blob/master/lifecycle_core/README.md)
+
 
 ## 生命周期注入
 
