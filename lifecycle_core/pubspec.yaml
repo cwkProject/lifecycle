@@ -1,8 +1,8 @@
 name: lifecycle_core
-description: 生命周期核心组件
+description: 仿Android Lifecycle的生命周期核心组件
 version: 0.1.0
-author:
-homepage:
+author: 超悟空 <cwk39251474@gmail.com>
+homepage: https://github.com/cwkProject/lifecycle/tree/master/lifecycle_core
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
