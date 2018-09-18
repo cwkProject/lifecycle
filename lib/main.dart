@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lifecycle/test_view_model.dart';
+import 'package:lifecycle_flutter/lifecycle_flutter.dart';
+import 'test_widget.dart';
 
 void main() => runApp(new MyApp());
 
@@ -42,18 +45,13 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyHomePageState extends State<MyHomePage> with StateWithLifeCycle {
+  TestViewModel _localViewModel;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  _MyHomePageState() {
+    _localViewModel = getLocalViewModel(TestViewModelProvider());
+
+    _localViewModel.counter.of(this).listen((_) => setState(() => {}));
   }
 
   @override
@@ -93,14 +91,15 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             new Text(
-              '$_counter',
+              '${_localViewModel.counter.value}',
               style: Theme.of(context).textTheme.display1,
             ),
+            TestWidget(),
           ],
         ),
       ),
       floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _localViewModel.add,
         tooltip: 'Increment',
         child: new Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

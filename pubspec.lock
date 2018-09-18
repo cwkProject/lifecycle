@@ -151,6 +151,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.4"
+  lifecycle_core:
+    dependency: transitive
+    description:
+      name: lifecycle_core
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.0"
+  lifecycle_flutter:
+    dependency: "direct main"
+    description:
+      path: lifecycle_flutter
+      relative: true
+    source: path
+    version: "0.0.1"
   logging:
     dependency: transitive
     description:
