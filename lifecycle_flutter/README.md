@@ -4,19 +4,19 @@
 
 ## Usage
 * 添加 `lifecycle_flutter` 到 [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
-* import 'package:lifecycle_flutter/lifecycle_flutter.dart';
+* `import 'package:lifecycle_flutter/lifecycle_flutter.dart';`
 
-实现State时通过继承或混入StateWithLifeCycle来获取生命周期管理能力和ViewModel管理能力。
-在实现了StateWithLifeCycle的State中通过 getLocalViewModel来获取与自身生命周期绑定的ViewModel实例。
-通过getRootViewModel获取最顶层根StateWithLifeCycle管理的ViewModel。
+实现`State`时通过继承或混入`StateWithLifeCycle`来获取生命周期管理能力和`ViewModel`管理能力。
+在实现了`StateWithLifeCycle`的`State`中通过 `getLocalViewModel`来获取与自身生命周期绑定的`ViewModel`实例。
+通过`getRootViewModel`获取最顶层根`StateWithLifeCycle`管理的`ViewModel`。
 
-在ViewModel中可以管理数据和执行业务相关操作，与UI组件解耦同时具有UI State的生命周期感知。
+在`ViewModel`中可以管理数据和执行业务相关操作，与UI组件解耦同时具有UI `State`的生命周期感知。
 
-通过LifecycleObserver可以实现具有生命周期感知的功能组件。
+通过`LifecycleObserver`可以实现具有生命周期感知的功能组件。
 
-通过LiveData可以监听数据的变化。
+通过`LiveData`可以监听数据的变化。
 
-有关更多Lifecycle ViewModel LiveData的使用请查看 [lifecycle_core](https://github.com/cwkProject/lifecycle/blob/master/lifecycle_core/README.md)
+有关更多`Lifecycle` `ViewModel` `LiveData`的使用请查看 [lifecycle_core](https://github.com/cwkProject/lifecycle/blob/master/lifecycle_core/README.md)
 
 ## 生命周期注入
 

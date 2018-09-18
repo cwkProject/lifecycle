@@ -4,24 +4,24 @@
 
 ## Usage
 * 添加 `lifecycle_core` 到 [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
-* import 'package:lifecycle_core/lifecycle_core.dart';
+* `import 'package:lifecycle_core/lifecycle_core.dart';`
 
-LifecycleOwner用于管理生命周期，需要由具有生命周期的对象实现，在flutter中这应该是State类。
+`LifecycleOwner`用于管理生命周期，需要由具有生命周期的对象实现，在flutter中这应该是`State`类。
 
-ViewModelStoreOwner用于管理ViewModel，同样具有生命周期感知能力，建议由LifecycleOwner对象实现。
+`ViewModelStoreOwner`用于管理`ViewModel`，同样具有生命周期感知能力，建议由`LifecycleOwner`对象实现。
 
-在ViewModel中可以管理数据和执行业务相关操作，由ViewModelStoreOwner管理，
-每个ViewModelStoreOwner实例中可以管理多个不同类型的ViewModel实例，对于相同类型的ViewModel只会有一个实例。
-在不同的ViewModelStoreOwner实例中同类型的ViewModel各自管理不同的实例。
+在`ViewModel`中可以管理数据和执行业务相关操作，由`ViewModelStoreOwner`管理，
+每个`ViewModelStoreOwner`实例中可以管理多个不同类型的`ViewModel`实例，对于相同类型的`ViewModel`只会有一个实例。
+在不同的`ViewModelStoreOwner`实例中同类型的`ViewModel`各自管理不同的实例。
 
-ViewModel通过getViewModel方法获取，需要提供一个ViewModelStoreOwner实例和ViewModelProvider实例。
+`ViewModel`通过`getViewModel`方法获取，需要提供一个`ViewModelStoreOwner`实例和`ViewModelProvider`实例。
 
-ViewModelProvider与ViewModel一一对应，同一个类型的ViewModel应该有且仅有一个对应的ViewModelProvider，
-ViewModelProvider仅用于首次构建ViewModel实例使用。
+`ViewModelProvider`与`ViewModel`一一对应，同一个类型的`ViewModel`应该有且仅有一个对应的`ViewModelProvider`，
+`ViewModelProvider`仅用于首次构建`ViewModel`实例使用。
 
-通过LifecycleObserver可以实现具有生命周期感知的功能组件，用法请看以下示例。
+通过`LifecycleObserver`可以实现具有生命周期感知的功能组件，用法请看以下示例。
 
-通过LiveData可以监听数据的变化，用法请看以下示例。
+通过`LiveData`可以监听数据的变化，用法请看以下示例。
 
 对于flutter的实现版本请查看 [lifecycle_flutter](https://github.com/cwkProject/lifecycle/tree/master/lifecycle_flutter)
 

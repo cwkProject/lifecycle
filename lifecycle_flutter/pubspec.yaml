@@ -1,6 +1,6 @@
 name: lifecycle_flutter
 description: 仿Android Lifecycle的 Flutter生命周期实现
-version: 0.1.0
+version: 0.1.1
 author: 超悟空 <cwk39251474@gmail.com>
 homepage: https://github.com/cwkProject/lifecycle/tree/master/lifecycle_flutter
 publish_to: https://pub.dartlang.org
@@ -9,7 +9,7 @@ environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
-  lifecycle_core: ^0.1.0
+  lifecycle_core: ^0.1.3
   flutter:
     sdk: flutter
 
