@@ -1,9 +1,263 @@
 # lifecycle_core
 
-生命周期核心组件
+模仿Android Lifecycle组件功能的dart版本生命周期核心组件
 
-## Getting Started
+## Usage
+添加 `lifecycle_core` 到 [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
+import 'package:lifecycle_core/lifecycle_core.dart';
 
-For help getting started with Flutter, view our online [documentation](https://flutter.io/).
+## 生命周期注入
 
-For help on editing package code, view the [documentation](https://flutter.io/developing-packages/).
+``` dart
+
+/// 拥有生命周期的类，在flutter中，它应该是State类
+///
+/// [LifecycleOwner]负责管理生命周期，[ViewModelStoreOwner]负责管理[ViewModel]
+class TestLifecycleOwner implements LifecycleOwner , ViewModelStoreOwner {
+
+  /// 正真管理生命周期事件分发
+  final _lifecycleRegistry = LifecycleRegistry();
+
+  /// 正真管理[ViewModel]
+  final _viewModelStore = ViewModelStore();
+
+  @override
+  Lifecycle get lifecycle => _lifecycleRegistry;
+
+  @override
+  ViewModelStore get viewModelStore => _viewModelStore;
+
+  // 假设为生命周期开始
+  create() {
+    print("TestLifecycleOwner create");
+    _lifecycleRegistry.handleLifecycleEvent(LifecycleEvent.onCreate);
+  }
+
+  // 假设为生命周期处于前台或附加到UI树中
+  resume() {
+    print("TestLifecycleOwner resume");
+    _lifecycleRegistry.handleLifecycleEvent(LifecycleEvent.onResume);
+  }
+
+  // 假设为生命周期处于后台或从UI树种移除
+  pause() {
+    print("TestLifecycleOwner pause");
+    _lifecycleRegistry.handleLifecycleEvent(LifecycleEvent.onPause);
+  }
+
+  // 假设为生命周期结束
+  destroy() {
+    print("TestLifecycleOwner destroy");
+    _lifecycleRegistry.handleLifecycleEvent(LifecycleEvent.onDestroy);
+
+    // 清理ViewModel
+    _viewModelStore.clear();
+  }
+}
+
+```
+
+## Lifecycle
+
+``` dart
+
+/// 继承方式生命周期监听器
+class ExtendsLifecycleObserver extends LifecycleObserver {
+  @override
+  onCreate() {
+    print("ExtendsLifecycleObserver onCreate");
+  }
+
+  @override
+  onPause() {
+    print("ExtendsLifecycleObserver onPause");
+  }
+
+  @override
+  onResume() {
+    print("ExtendsLifecycleObserver onResume");
+  }
+}
+
+/// 完整实现方式生命周期监听器
+class ImplementsLifecycleObserver implements LifecycleObserver {
+  @override
+  onCreate() {
+    print("ImplementsLifecycleObserver onCreate");
+  }
+
+  @override
+  onPause() {
+    print("ImplementsLifecycleObserver onPause");
+  }
+
+  @override
+  onResume() {
+    print("ImplementsLifecycleObserver onResume");
+  }
+
+  @override
+  onDestroy() {
+    print("ImplementsLifecycleObserver onDestroy");
+  }
+}
+
+/// Mixin方式生命周期监听器
+class MXLifecycleObserver extends Object with MixinLifecycleObserver {
+  @override
+  onCreate() {
+    print("MXLifecycleObserver onCreate");
+  }
+}
+
+void main(){
+  var lifecycleOwner = TestLifecycleOwner();
+
+  lifecycleOwner.lifecycle.addObserver(ExtendsLifecycleObserver());
+  lifecycleOwner.lifecycle.addObserver(ImplementsLifecycleObserver());
+  lifecycleOwner.lifecycle.addObserver(MXLifecycleObserver());
+
+  // 直接创建实例的方式生命周期监听器
+  lifecycleOwner.lifecycle.addObserver(LifecycleObserver(
+          onCreate: () => print("onCreate"),
+          onResume: () => print("onResume"),
+          onPause:  () => print("onPause"),
+          onDestroy:() => print("onDestroy"),);
+
+  // 模拟生命周期
+  lifecycleOwner.create();
+  lifecycleOwner.resume();
+  lifecycleOwner.pause();
+  lifecycleOwner.resume();
+  lifecycleOwner.pause();
+  lifecycleOwner.destroy();
+}
+
+```
+
+## ViewModel
+
+``` dart
+
+/// ViewModel实现类，用于提供数据和完成业务逻辑，与ui无直接关联，仅与生命周期相关
+class TestViewModel extends ViewModel {
+  var count = 0;
+
+  TestViewModel() {
+    print("TestViewModel init $count");
+  }
+
+  add() {
+    print("TestViewModel ${++count}");
+  }
+
+  @override
+  void onCleared() {
+    print("TestViewModel onCleared $count");
+  }
+}
+
+/// 与[TestViewModel]对应的构建器，由于flutter不允许反射，所以使用构造器模式
+class TestViewModelProvider extends ViewModelProvider<TestViewModel> {
+  @override
+  TestViewModel createViewModel() => TestViewModel();
+}
+
+class Test2ViewModel extends ViewModel {
+  var count = 0;
+
+  Test2ViewModel() {
+    print("Test2ViewModel init $count");
+  }
+
+  add() {
+    print("Test2ViewModel ${++count}");
+  }
+
+  @override
+  void onCleared() {
+    print("Test2ViewModel onCleared $count");
+  }
+}
+
+class Test2ViewModelProvider extends ViewModelProvider<Test2ViewModel> {
+  @override
+  Test2ViewModel createViewModel() => Test2ViewModel();
+}
+
+void main(){
+
+  var lifecycleOwner = TestLifecycleOwner();
+
+  lifecycleOwner.lifecycle.addObserver(LifecycleObserver(onCreate: () {
+    // 获取viewModel对象，通过对应类型的ViewModelProvider实例
+    var viewModel = getViewModel(lifecycleOwner, TestViewModelProvider());
+    viewModel.add();
+  }, onResume: () {
+    // 第二次获取viewModel对象，在这个lifecycleOwner中返回上次创建的对象
+    var viewModel = getViewModel(lifecycleOwner, TestViewModelProvider());
+    viewModel.add();
+
+    // 获取新的viewModel对象
+    var viewModel2 = getViewModel(lifecycleOwner, Test2ViewModelProvider());
+    viewModel2.add();
+  }));
+
+  lifecycleOwner.create();
+  lifecycleOwner.resume();
+  lifecycleOwner.pause();
+  lifecycleOwner.destroy();
+
+  var lifecycleOwner2 = TestLifecycleOwner();
+
+  lifecycleOwner2.lifecycle.addObserver(LifecycleObserver(onCreate: () {
+    // 在新的lifecycleOwner2中获取的viewModel为一个新对象
+    var viewModel = getViewModel(lifecycleOwner2, TestViewModelProvider());
+    viewModel.add();
+  }, onResume: () {
+    var viewModel = getViewModel(lifecycleOwner2, TestViewModelProvider());
+    viewModel.add();
+  }));
+
+  lifecycleOwner2.create();
+  lifecycleOwner2.resume();
+  lifecycleOwner2.pause();
+  lifecycleOwner2.destroy();
+}
+
+```
+
+## LiveData
+
+``` dart
+
+void main(){
+
+  var liveData = MutableLiveData<int>();
+
+  var lifecycleOwner = TestLifecycleOwner();
+
+  lifecycleOwner.lifecycle.addObserver(LifecycleObserver(onCreate: () {
+    liveData.of(lifecycleOwner).listen((value) {
+      print("liveData new value:$value");
+    });
+  }, onResume: () {
+    print("onResume");
+  }));
+
+  lifecycleOwner.create();
+
+  // 由于liveData基于[Stream]实现，所以这个测试只能打印一次值2
+  liveData.value = 2;
+  lifecycleOwner.resume();
+  liveData.value = 3;
+  liveData.value = 4;
+  lifecycleOwner.pause();
+  liveData.value = 5;
+  lifecycleOwner.destroy();
+  liveData.value = 6;
+}
+
+```
+
+

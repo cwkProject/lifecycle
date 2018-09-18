@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [0.1.0] - 2018/9/18
 
-* TODO: Describe initial release.
+* 首次发布，初步完成lifecycle viewModel liveData核心组件
