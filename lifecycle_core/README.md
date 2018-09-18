@@ -23,7 +23,7 @@ ViewModelProvider仅用于首次构建ViewModel实例使用。
 
 通过LiveData可以监听数据的变化，用法请看以下示例。
 
-有关更多Lifecycle ViewModel LiveData的使用请查看 [lifecycle_core](https://github.com/cwkProject/lifecycle/blob/master/lifecycle_core/README.md)
+对于flutter的实现版本请查看 [lifecycle_flutter](https://github.com/cwkProject/lifecycle/tree/master/lifecycle_flutter)
 
 
 ## 生命周期注入
