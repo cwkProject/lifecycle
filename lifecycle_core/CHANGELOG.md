@@ -1,3 +1,7 @@
+## [0.1.4] - 2018/9/19
+
+* 增加`ChangeObservable`类
+
 ## [0.1.3] - 2018/9/18
 
 * 修改文档
@@ -12,4 +16,4 @@
 
 ## [0.1.0] - 2018/9/18
 
-* 首次发布，初步完成lifecycle viewModel liveData核心组件
+* 首次发布，初步完成`Lifecycle` `ViewModel` `LiveData`核心组件

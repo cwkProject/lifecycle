@@ -172,6 +172,16 @@ void testLiveData() {
     print("onDestroy");
   }));
 
+  var setState = (VoidCallback) {
+    print("change");
+  };
+
+  var changeObservable = ChangeObservable();
+
+  changeObservable.of(lifecycleOwner).listen(setState);
+
+  changeObservable.notify();
+
   lifecycleOwner.create();
   lifecycleOwner.resume();
   liveData.value = 2;

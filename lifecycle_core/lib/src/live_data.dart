@@ -192,3 +192,23 @@ class MutableLiveData<T> extends LiveData<T> {
     _foreverController.add(value);
   }
 }
+
+/// 数据改变通知者
+///
+/// * [LiveData]特化子类，仅发送空实现的[VoidCallback]方法(无实际意义)，
+/// 通过监听此对象来获悉任何相关数据的改变或某些固定事件的发生，
+/// 当某些数据的改变需要通知观察者做出反应时，请调用[notify]。
+/// * 此类仅用于通知事件的发生，一般在通知UI数据更新时使用，
+/// 与纯[Stream]的不同点时它具有生命周期感知能力和自动注销死亡观察者的能力。
+class ChangeObservable extends LiveData<VoidCallback> {
+  /// 空方法
+  static VoidCallback _empty = () {};
+
+  /// 通知数据改变
+  void notify() {
+    _value = _empty;
+    _version++;
+    _controller.add(version);
+    _foreverController.add(value);
+  }
+}

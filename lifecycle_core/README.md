@@ -1,5 +1,7 @@
 # lifecycle_core
 
+[![pub package](https://img.shields.io/pub/v/lifecycle_core.svg)](https://pub.dartlang.org/packages/lifecycle_core)
+
 模仿Android Lifecycle组件功能的dart版本生命周期核心组件
 
 ## Usage
@@ -18,6 +20,10 @@
 
 `ViewModelProvider`与`ViewModel`一一对应，同一个类型的`ViewModel`应该有且仅有一个对应的`ViewModelProvider`，
 `ViewModelProvider`仅用于首次构建`ViewModel`实例使用。
+
+* `ChangeObservable`特化的`LiveData`，仅用于通知事件的发生，比如一些数据发生了改变，这在flutter中特别有用。
+通常`Widget`直接绑定了`ViewModel`中的一些变量，当数据发生变化时我们仅仅希望通知UI刷新而已，
+此时已经不需要关心是那些数据发生了怎样的变化。
 
 通过`LifecycleObserver`可以实现具有生命周期感知的功能组件，用法请看以下示例。
 
@@ -280,4 +286,21 @@ void main(){
 
 ```
 
+## ChangeObservable
 
+``` dart
+
+  // 该方法的签名与flutter中[State.setState]一致
+  var setState = (VoidCallback) {
+    print("change");
+  };
+
+  var changeObservable = ChangeObservable();
+
+  // 直接传入[setState]方法，简化代码量
+  changeObservable.of(lifecycleOwner).listen(setState);
+
+  // 通知变化
+  changeObservable.notify();
+
+```

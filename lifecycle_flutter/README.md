@@ -1,5 +1,7 @@
 # lifecycle_flutter
 
+[![pub package](https://img.shields.io/pub/v/lifecycle_flutter.svg)](https://pub.dartlang.org/packages/lifecycle_flutter)
+
 模仿Android Lifecycle组件功能的Flutter生命周期实现
 
 ## Usage
