@@ -62,11 +62,9 @@ class ViewModelStore {
     return _map[key];
   }
 
-  /**
-   *  清空[ViewModel]并执行[ViewModel.onCleared]
-   *
-   *  应该在[ViewModelStoreOwner]的生命周期结束时调用该方法
-   */
+  /// 清空[ViewModel]并执行[ViewModel.onCleared]
+  ///
+  /// 应该在[ViewModelStoreOwner]的生命周期结束时调用该方法
   void clear() {
     _map.forEach((_, viewModel) {
       viewModel.onCleared();

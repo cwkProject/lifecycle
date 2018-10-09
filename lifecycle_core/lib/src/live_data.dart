@@ -25,10 +25,10 @@ const _startVersion = -1;
 /// 所以您不必手动管理移除和担心内存泄漏。
 abstract class LiveData<T> {
   /// 流控制器，用于通知数据变化，每次数据变化会发射新版本号
-  final _controller = StreamController.broadcast<int>();
+  final _controller = StreamController<int>.broadcast();
 
   /// 用于独立于生命周期对象监听数据的流控制器
-  final _foreverController = StreamController.broadcast<T>();
+  final _foreverController = StreamController<T>.broadcast();
 
   /// 当前版本
   var _version = _startVersion;
