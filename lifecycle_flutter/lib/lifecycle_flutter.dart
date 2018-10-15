@@ -5,6 +5,7 @@ import 'package:lifecycle_core/lifecycle_core.dart';
 
 export 'package:lifecycle_core/lifecycle_core.dart';
 
+/// 具有生命周期感知的State实现，可以被继承或混入
 abstract class StateWithLifeCycle<T extends StatefulWidget> extends State<T>
     implements LifecycleOwner, ViewModelStoreOwner {
   final _lifecycleRegistry = LifecycleRegistry();
@@ -63,12 +64,6 @@ abstract class StateWithLifeCycle<T extends StatefulWidget> extends State<T>
   void didChangeDependencies() {
     super.didChangeDependencies();
     _lifecycleRegistry.handleLifecycleEvent(LifecycleEvent.onResume);
-  }
-
-  @override
-  void deactivate() {
-    super.deactivate();
-    _lifecycleRegistry.handleLifecycleEvent(LifecycleEvent.onPause);
   }
 
   @override
