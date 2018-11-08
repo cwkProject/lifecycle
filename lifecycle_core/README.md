@@ -129,7 +129,7 @@ class ImplementsLifecycleObserver implements LifecycleObserver {
 }
 
 /// Mixin方式生命周期监听器
-class MXLifecycleObserver extends Object with MixinLifecycleObserver {
+class MXLifecycleObserver extends Object with LifecycleObserverMixin {
   @override
   onCreate() {
     print("MXLifecycleObserver onCreate");

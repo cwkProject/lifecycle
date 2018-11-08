@@ -125,7 +125,7 @@ class LifecycleObserver {
 }
 
 /// 用于mixin的特定[LifecycleObserver]实现
-abstract class MixinLifecycleObserver implements LifecycleObserver {
+mixin LifecycleObserverMixin implements LifecycleObserver {
   @override
   void onCreate() {}
 

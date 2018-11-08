@@ -45,7 +45,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with StateWithLifeCycle {
+class _MyHomePageState extends State<MyHomePage> with StateWithLifeCycleMixin {
   TestViewModel _localViewModel;
 
   _MyHomePageState() {

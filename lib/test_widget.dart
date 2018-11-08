@@ -11,7 +11,7 @@ class TestWidget extends StatefulWidget {
   State createState() => TestState();
 }
 
-class TestState extends State<TestWidget> with StateWithLifeCycle {
+class TestState extends State<TestWidget> with StateWithLifeCycleMixin {
   TestViewModel _localViewModel;
 
   TestViewModel _rootViewModel;
@@ -25,6 +25,8 @@ class TestState extends State<TestWidget> with StateWithLifeCycle {
     super.initState();
 
     _rootViewModel = getRootViewModel(TestViewModelProvider());
+
+    print("TestState $_rootViewModel");
 
     _localViewModel.counter.of(this).listen((_) => setState(() => {}));
 

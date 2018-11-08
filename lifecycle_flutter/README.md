@@ -8,7 +8,8 @@
 * 添加 `lifecycle_flutter` 到 [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 * `import 'package:lifecycle_flutter/lifecycle_flutter.dart';`
 
-实现`State`时通过继承或混入`StateWithLifeCycle`来获取生命周期管理能力和`ViewModel`管理能力。
+实现`State`时通过混入`StateWithLifeCycleMixin`来获取生命周期管理能力和`ViewModel`管理能力。
+或者直接继承`StateWithLifeCycle`来获得生命周期管理能力和`ViewModel`管理能力。
 在实现了`StateWithLifeCycle`的`State`中通过 `getLocalViewModel`来获取与自身生命周期绑定的`ViewModel`实例。
 通过`getRootViewModel`获取最顶层根`StateWithLifeCycle`管理的`ViewModel`。
 

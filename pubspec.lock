@@ -157,14 +157,14 @@ packages:
       name: lifecycle_core
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.5"
   lifecycle_flutter:
     dependency: "direct main"
     description:
-      name: lifecycle_flutter
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.0"
+      path: lifecycle_flutter
+      relative: true
+    source: path
+    version: "0.1.2"
   logging:
     dependency: transitive
     description:
