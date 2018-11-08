@@ -8,8 +8,7 @@
 * 添加 `lifecycle_flutter` 到 [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 * `import 'package:lifecycle_flutter/lifecycle_flutter.dart';`
 
-实现`State`时通过混入`StateWithLifeCycleMixin`来获取生命周期管理能力和`ViewModel`管理能力。
-或者直接继承`StateWithLifeCycle`来获得生命周期管理能力和`ViewModel`管理能力。
+实现`State`时通过混入`StateWithLifeCycle`来获取生命周期管理能力和`ViewModel`管理能力。
 在实现了`StateWithLifeCycle`的`State`中通过 `getLocalViewModel`来获取与自身生命周期绑定的`ViewModel`实例。
 通过`getRootViewModel`获取最顶层根`StateWithLifeCycle`管理的`ViewModel`。
 
@@ -27,7 +26,7 @@
 
 /// 使用生命周期注入
 ///
-/// 需要继承或混入[StateWithLifeCycle]，
+/// 需要混入[StateWithLifeCycle]，
 /// [StateWithLifeCycle]实现了[LifecycleOwner]和[ViewModelStoreOwner]，
 /// 此时[State]具有提供生命周期事件和管理[ViewModel]的能力。
 class TestState extends State<TestWidget> with StateWithLifeCycle {
@@ -109,7 +108,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-/// 必须继承或混入[StateWithLifeCycle]来获得生命周期管理能力
+/// 必须混入[StateWithLifeCycle]来获得生命周期管理能力
 ///
 /// 多个子级[StateWithLifeCycle]只能获取最顶级的[StateWithLifeCycle]实现对象，
 /// 基于[BuildContext.rootAncestorStateOfType]实现。

@@ -5,8 +5,10 @@ import 'package:lifecycle_core/lifecycle_core.dart';
 
 export 'package:lifecycle_core/lifecycle_core.dart';
 
-/// 具有生命周期感知的State混入类，可以需要被混入
-mixin StateWithLifeCycleMixin<T extends StatefulWidget> on State<T>
+/// 具有生命周期感知的State混入类
+///
+/// 实现了[LifecycleOwner],[ViewModelStoreOwner]的能力
+mixin StateWithLifeCycle<T extends StatefulWidget> on State<T>
     implements LifecycleOwner, ViewModelStoreOwner {
   final _lifecycleRegistry = LifecycleRegistry();
 
@@ -45,9 +47,9 @@ mixin StateWithLifeCycleMixin<T extends StatefulWidget> on State<T>
     }
 
     var state =
-        context.rootAncestorStateOfType(TypeMatcher<StateWithLifeCycleMixin>());
+        context.rootAncestorStateOfType(TypeMatcher<StateWithLifeCycle>());
 
-    if (state is StateWithLifeCycleMixin) {
+    if (state is StateWithLifeCycle) {
       return state.getLocalViewModel(provider);
     } else {
       return null;
@@ -73,7 +75,3 @@ mixin StateWithLifeCycleMixin<T extends StatefulWidget> on State<T>
     _viewModelStore.clear();
   }
 }
-
-/// 具有生命周期感知的State抽象类，需要被继承
-abstract class StateWithLifeCycle<T extends StatefulWidget> extends State<T>
-    with StateWithLifeCycleMixin {}

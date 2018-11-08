@@ -11,7 +11,7 @@ class TestWidget extends StatefulWidget {
   State createState() => TestState();
 }
 
-class TestState extends State<TestWidget> with StateWithLifeCycleMixin {
+class TestState extends State<TestWidget> with StateWithLifeCycle {
   TestViewModel _localViewModel;
 
   TestViewModel _rootViewModel;
